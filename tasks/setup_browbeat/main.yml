@@ -1,0 +1,36 @@
+---
+
+- name: Clone browbeat repository
+  git:
+      repo: "{{ test.git.repo | default(browbeat_git_repo) }}"
+      version: "{{ test.git.revision | default(browbeat_git_revision) }}"
+      dest: "{{ ansible_user_dir }}"
+
+- name: Install packages required for running Browbeat
+  yum:
+      name: "{{ item }}"
+      state: present
+  with_items: "{{ browbeat_dependencies }}"
+
+- name: Execute tripleo hostfile script
+  args:
+      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
+  shell: "./generate_tripleo_hostfile.sh -t localhost"
+
+- name: Install browbeat
+  args:
+      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
+  shell: "ansible-playbook -i hosts install/browbeat.yml"
+
+- name: Create browbeat network resources
+  args:
+      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
+  shell: "ansible-playbook -i hosts install/browbeat_network.yml"
+
+- name: Build image for shaker
+  args:
+      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
+  shell: "ansible-playbook -i hosts install/browbeat_network.yml"
+  when:
+      - test.shaker is defined and test.shaker
+      - install_shaker is defined and install_shaker

@@ -1,0 +1,9 @@
+---
+
+- name: Run Overcloud checks
+  args:
+      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
+  shell: "ansible-playbook -i hosts check/site.yml"
+  when:
+      - test.overcloud.checks is defined and test.overcloud.checks
+      - overcloud_checks is defined and overcloud_checks

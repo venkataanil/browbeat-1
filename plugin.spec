@@ -15,6 +15,10 @@ subparsers:
                       type: Bool
                       help: Run YODA
                       default: False
+                  shaker:
+                      type: Bool
+                      help: Run Shaker
+                      default: False
                   git-repo:
                       type: Value
                       help: URL of browbeat git repository to clone

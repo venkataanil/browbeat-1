@@ -2,6 +2,7 @@
 Browbeat InfraRed Plugin
 
 *WORK IN PROGRESS*
+
 *This plugin is not ready for use*
 
 ## Installation
@@ -23,11 +24,17 @@ To run stress tests::
 
 To run YODA::
 
-    infrared --yoda yes
+    infrared browbeat --yoda yes
 
 To run multiple types of tests::
 
-    infrared --yoda yes --stress yes
+    infrared browbeat --yoda yes --stress yes
+    
+## Tests
+
+To run Ansible linting tests, run the following command::
+
+    tox -e ansible-lint
 
 ## Contributions
 

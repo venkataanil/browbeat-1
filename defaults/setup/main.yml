@@ -1,0 +1,9 @@
+---
+
+browbeat_git_repo: "https://github.com/openstack/browbeat"
+browbeat_git_revision: "HEAD"
+browbeat_dependencies:
+    - "ansible"
+    - "python-pip"
+
+install_shaker: False
