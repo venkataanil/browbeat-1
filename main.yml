@@ -1,0 +1,22 @@
+- name: Run browbeat tester
+  hosts: tester
+  gather_facts: yes
+  any_errors_fatal: yes
+  vars:
+      packages:
+          - git
+  tasks:
+      - name: Setup browbeat
+        include: tasks/setup_browbeat.yml
+        tags:
+            - browbeat_setup
+
+      - name: Run browbeat
+        include: tasks/run.yml
+        tags:
+            - browbeat_run
+
+      - name: Browbeat report
+        include: tasks/make_report.yml
+        tags:
+            - browbeat_report
