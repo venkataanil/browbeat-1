@@ -1,1 +1,2 @@
-overcloud_checks: True
+# overcloud checks are no longer maintained.
+overcloud_checks: false
