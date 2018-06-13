@@ -22,11 +22,6 @@
       chdir: "{{ ansible_user_dir }}/browbeat/ansible"
   shell: "ansible-playbook -i hosts install/browbeat.yml"
 
-- name: Create browbeat network resources
-  args:
-      chdir: "{{ ansible_user_dir }}/browbeat/ansible"
-  shell: "ansible-playbook -i hosts install/browbeat_network.yml"
-
 - name: Build image for shaker
   args:
       chdir: "{{ ansible_user_dir }}/browbeat/ansible"
