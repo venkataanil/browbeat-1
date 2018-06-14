@@ -1,29 +1,22 @@
-plugin_type: test
-description: Browbeat runner
+config:
+    plugin_type: test
 subparsers:
-    browbeat:
-        help: Browbeat tests runner
+    tempest:
+        description: The Browbeat performance test runner
         include_groups: ["Ansible options", "Inventory", "Common options", "Answers file"]
         groups:
-            - title: BrowBeat
+            - title: Browbeat
               options:
-                  stress:
-                      type: Bool
-                      help: Run stress tests
-                      default: False
-                  yoda:
-                      type: Bool
-                      help: Run YODA
-                      default: False
-                  shaker:
-                      type: Bool
-                      help: Run Shaker
-                      default: False
-                  git-repo:
+                  config-file:
+                      type: FileValue
+                      help: |
+                        The browbeat configuration to execute
+                  workloads:
                       type: Value
-                      help: URL of browbeat git repository to clone
-                      default: https://git.openstack.org/openstack/browbeat
-                  git-revision:
-                      type: Value
-                      help: Revision of browbeat repository
-                      default: HEAD
+                      nargs: '*'
+                      help: |
+                        The workloads to run
+                  ansible-vars:
+                      type: FileValue
+                      help: |
+                        The ansbile vars file for installation       
