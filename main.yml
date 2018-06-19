@@ -1,22 +1,14 @@
-- name: Run browbeat tester
-  hosts: tester
-  gather_facts: yes
-  any_errors_fatal: yes
-  vars:
-      packages:
-          - git
-  tasks:
-      - name: Setup browbeat
-        include: tasks/setup_browbeat.yml
-        tags:
-            - browbeat_setup
+- name: Install browbeat
+  import_playbook: install.yml
+  tags:
+    - install
 
-      - name: Run browbeat
-        include: tasks/run.yml
-        tags:
-            - browbeat_run
+- name: Install monitoring
+  import_playbook: collectd-openstack.yml
+  tags:
+    - monitor
 
-      - name: Browbeat report
-        include: tasks/make_report.yml
-        tags:
-            - browbeat_report
+- name: Run Browbeat
+  import_playbook: run.yml
+  tags:
+    - run

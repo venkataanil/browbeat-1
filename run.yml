@@ -1,0 +1,12 @@
+---
+- hosts: tester
+  vars_files:
+    - vars/{{((test|default('')).ansbile|default('')).vars|default('install.yml')}}
+  tasks:
+    - name: Run Browbeat
+      command:
+        source {{browbeat_venv}}/bin/activate; ./browbeat.py -s
+        {{ test.config.file | default(browbeat-config.yaml) }} {{test.workloads | default(rally)}}
+      args:
+        chdir: "{{browbeat_path}}"
+
