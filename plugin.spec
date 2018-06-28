@@ -1,7 +1,7 @@
 config:
     plugin_type: test
 subparsers:
-    tempest:
+    browbeat:
         description: The Browbeat performance test runner
         include_groups: ["Ansible options", "Inventory", "Common options", "Answers file"]
         groups:
