@@ -19,4 +19,14 @@ subparsers:
                   ansible-vars:
                       type: FileValue
                       help: |
-                        The ansbile vars file for installation       
+                        The ansbile vars file for installation
+                  monitor:
+                      type: Bool
+                      help: |
+                        Setup collectd to monitor cloud
+                      default: False
+                  visualize:
+                      type: Bool
+                      help:
+                        Visualize system metrics through grafana dashboards
+                      default: False      

@@ -1,41 +1,43 @@
 # browbeat
 Browbeat InfraRed Plugin
 
-*WORK IN PROGRESS*
-
-*This plugin is not ready for use*
 
 ## Installation
 
-1. Install infrared (https://github.com/redhat-openstack/infrared)
-2. Install browbeat infrared plugin::
+1. Install [infrared](https://github.com/redhat-openstack/infrared)
+2. Install browbeat infrared plugin
 
-    infrared plugin add <ir_brownbeat_plugin_path>
+```
+infrared plugin add <ir_brownbeat_plugin_path>
+```
+3. Run the plugin
 
-3. Run the plugin::
-
-    infrared browbeat -h
+```
+infrared browbeat -h
+```
 
 ## Usage
 
-To run stress tests::
+To install and run browbeat on your TripleO cloud
+ 
+```
+infrared browbeat --ansoble-vars <filename> --config-file <filename> --workloads <rally/shaker/perfkit>
+```
 
-    infrared browbeat --stress yes
+If you want to run workloads along with monitoring and visuzalization
 
-To run YODA::
-
-    infrared browbeat --yoda yes
-
-To run multiple types of tests::
-
-    infrared browbeat --yoda yes --stress yes
+```
+infrared browbeat --ansoble-vars <filename> --config-file <filename> --workloads <rally/shaker/perfkit> --monitor yes --visualize yes
+```
     
 ## Tests
 
-To run Ansible linting tests, run the following command::
+To run Ansible linting tests, run the following command
 
-    tox -e ansible-lint
+```
+tox -e ansible-lint
 
+```
 ## Contributions
 
-Contributions are done with pull requests :)
+Contributions are made with pull requests :)
