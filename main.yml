@@ -8,6 +8,11 @@
   tags:
     - monitor
 
+- name: Upload grafana dashboards
+  import_playbook: grafana-dashboards.yml
+  tags:
+    - visualize
+
 - name: Run Browbeat
   import_playbook: run.yml
   tags:
