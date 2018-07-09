@@ -6,7 +6,7 @@
     - name: Run Browbeat
       command:
         source {{browbeat_venv}}/bin/activate; ./browbeat.py -s
-        {{ test.config.file | default(browbeat-config.yaml) }} {{test.workloads | default(rally)}}
+        {{ ((test|default('')).config|default('')).file|default(browbeat-config.yaml) }} {{ ((test|default('')).workloads|default(rally)}}
       args:
         chdir: "{{browbeat_path}}"
 
