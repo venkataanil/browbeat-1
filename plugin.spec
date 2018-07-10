@@ -20,10 +20,6 @@ subparsers:
                       type: Value
                       help: |
                         The workloads to run, comma separated (rally,shaker.perfkit)
-                  ansible-vars:
-                      type: FileValue
-                      help: |
-                        The ansbile vars file for installation
                   monitor:
                       type: Bool
                       help: |
