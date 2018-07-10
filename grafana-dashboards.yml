@@ -26,8 +26,6 @@
 
 - hosts: localhost
   gather_facts: false
-  vars_files:
-    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
   vars:
     ansible_connection: local
     upload_cloud_specific: true
