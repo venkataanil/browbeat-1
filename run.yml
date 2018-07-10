@@ -1,12 +1,16 @@
 ---
 - hosts: tester
   vars_files:
-    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
-  tasks:
+    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
+  tasks:    
+    - name: Copy browbeat-config
+      copy:
+        src: "{{test.config.file }}"
+        dest: "{{browbeat_path }}"
     - name: Run Browbeat
-      command:
+      shell:
         source {{browbeat_venv}}/bin/activate; ./browbeat.py -s
-        {{ ((test|default('')).config|default('')).file|default(browbeat-config.yaml) }} {{ ((test|default('')).workloads|default(rally)}}
+        {{ ((test|default('')).config|default('')).file|basename|default('browbeat-config.yaml') }} {{ (test|default('')).workloads|default('rally')}}
       args:
         chdir: "{{browbeat_path}}"
 

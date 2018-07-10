@@ -3,14 +3,15 @@
   tasks:
     - name: Copy ansible vars file
       copy:
-        src: test.ansible.vars
-        dest: var/
+        src: "{{ test.ansible.vars }}"
+        dest: vars/
       when: test.ansible.vars is defined
 
 - name: Install browbeat
   import_playbook: install.yml
   tags:
     - install
+  when: test.install
 
 - name: Install monitoring
   import_playbook: collectd-openstack.yml
