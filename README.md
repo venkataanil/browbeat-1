@@ -8,7 +8,7 @@ Browbeat InfraRed Plugin
 2. Install browbeat infrared plugin
 
 ```
-infrared plugin add <ir_brownbeat_plugin_path>
+infrared plugin add https://github.com/rhos-infra/browbeat.git
 ```
 3. Run the plugin
 
@@ -31,7 +31,7 @@ infrared browbeat --install yes --config-file <filename> --workloads <rally/shak
 ```
 If browbeat is already installed, you can skip the --install flag or set it to no to skip the installation.
 
-PAssing the extra argument -e @<ansible_vars_file> is mandatory or the plugin will fail. A sample file is provided [here](vars/all.yml)
+Passing the extra argument -e @<ansible_vars_file> is mandatory or the plugin will fail. A sample file is provided [here](vars/all.yml)
     
 ## Tests
 
