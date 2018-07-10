@@ -5,9 +5,10 @@
 
 - hosts: tester
   vars_files:
-    - vars/{{((test|default('')).ansbile|default('')).vars|default('install.yml')}}
+    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
   roles:
     - common
+    - epel
     - browbeat
     - { role: browbeat-results, when: browbeat_results_in_httpd}
     - firewall

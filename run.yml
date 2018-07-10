@@ -1,7 +1,7 @@
 ---
 - hosts: tester
   vars_files:
-    - vars/{{((test|default('')).ansbile|default('')).vars|default('install.yml')}}
+    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
   tasks:
     - name: Run Browbeat
       command:
