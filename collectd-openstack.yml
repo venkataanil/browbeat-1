@@ -2,7 +2,7 @@
   vars:
     config_type: undercloud
   vars_files:
-    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
+    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
   roles:
     - { role: common, when: collectd_undercloud }
     - { role: epel, when: collectd_undercloud }
@@ -20,7 +20,7 @@
   vars:
     config_type: controller
   vars_files:
-    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
+    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
   roles:
     - { role: osp_version }
     - { role: common, when: collectd_controller }
@@ -39,7 +39,7 @@
   vars:
     config_type: compute
   vars_files:
-    - vars/{{((test|default('')).ansible|default('')).vars|default('install.yml')}}
+    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
   roles:
     - { role: osp_version }
     - { role: common, when: collectd_compute }

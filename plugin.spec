@@ -7,15 +7,19 @@ subparsers:
         groups:
             - title: Browbeat
               options:
+                  install:
+                    type: Bool
+                    help: |
+                      Runs the browbeat installer
+                    default: False
                   config-file:
                       type: FileValue
                       help: |
                         The browbeat configuration to execute
                   workloads:
                       type: Value
-                      nargs: '*'
                       help: |
-                        The workloads to run
+                        The workloads to run, comma separated (rally,shaker.perfkit)
                   ansible-vars:
                       type: FileValue
                       help: |
