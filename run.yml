@@ -14,7 +14,7 @@
     - name: Run Browbeat
       shell: |
         source {{browbeat_venv}}/bin/activate
-        ./browbeat.py -s {{ browbeat_config_file }} {{ (test|default('')).workloads|default('rally') }}
+        ./browbeat.py -s {{ browbeat_config_file }} {{ (test|default({})).workloads|default('rally') }}
       args:
         chdir: "{{ browbeat_path }}"
 
