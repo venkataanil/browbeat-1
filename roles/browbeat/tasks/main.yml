@@ -7,12 +7,6 @@
   fail: msg="**Unsupported Linux distribution! Please use CentOS 7+, RHEL 7+, or add support for your distribution**"
   when: not supported_distro
 
-- name: Install python development tools
-  yum:
-    name: python-devel
-    state: present
-  become: true
-
 - name: Install dependencies for CentOS
   yum:
     name: "{{ item }}"
@@ -26,11 +20,11 @@
     - libsemanage-python
     - openssl-devel
     - policycoreutils-python
+    - python-devel
 
 - name: Install pip
-  yum:
-    name: python-pip
-    state: present
+  easy_install:
+    name: pip
   become: true
 
 - name: Update virtualenv and setuptools
@@ -52,7 +46,7 @@
 - debug: msg="Browbeat directory exists already."
   when: browbeat_exists.stat.isdir is defined and browbeat_exists.stat.isdir
 
-- name: Clone browbeat on host
+- name: Clone browbeat on undercloud
   git:
     repo: https://github.com/openstack/browbeat.git
     dest: "{{ browbeat_path }}"
@@ -67,6 +61,25 @@
     dest: "{{ browbeat_venv }}/bin/activate"
     line: 'export REQUESTS_CA_BUNDLE={{ overcloud_ca_path }}'
   when: overcloud_ca_path is defined
+
+- name: Determine if generate_tripleo_hostfile has been run
+  stat:
+    path: "{{ browbeat_path }}/ansible/hosts"
+  register: hosts_file_exists
+
+- debug: msg="Hosts file is already generated."
+  when: hosts_file_exists.stat.exists and hosts_file_exists.stat.isreg
+
+- name: Generate hosts and ssh-config on Browbeat Machine - Default(stack)
+  shell: . {{ home_dir }}/stackrc; {{ browbeat_path }}/ansible/generate_tripleo_hostfile.sh -t localhost --user stack
+  when: tripleo == true and (hosts_file_exists.stat.exists == false or hosts_file_exists.stat.isreg == false)
+
+- name: Move files to correct location
+  command: mv {{ home_dir }}/{{item}} {{ browbeat_path }}/ansible/{{item}}
+  with_items:
+    - hosts
+    - heat-admin-id_rsa
+  when: "(tripleo == true and (hosts_file_exists.stat.exists == false or hosts_file_exists.stat.isreg == false))"
 
 - name: Install requirements.txt into browbeat-venv
   pip:
