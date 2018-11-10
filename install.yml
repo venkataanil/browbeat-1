@@ -5,7 +5,7 @@
 
 - hosts: tester
   vars_files:
-    - vars/{{ ((test|default('')).ansible|default('')).vars|basename|default('install.yml')}}
+    - vars/install.yml
   roles:
     - common
     - epel
