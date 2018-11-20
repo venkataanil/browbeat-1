@@ -16,10 +16,6 @@ subparsers:
                       type: FileValue
                       help: |
                         The browbeat configuration to execute
-                  workloads:
-                      type: Value
-                      help: |
-                        The workloads to run, comma separated (rally,shaker.perfkit)
                   monitor:
                       type: Bool
                       help: |
@@ -29,4 +25,4 @@ subparsers:
                       type: Bool
                       help:
                         Visualize system metrics through grafana dashboards
-                      default: False      
+                      default: False

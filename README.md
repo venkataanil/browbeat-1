@@ -19,20 +19,20 @@ infrared browbeat -h
 ## Usage
 
 To install and run browbeat on your TripleO cloud
- 
+
 ```
-infrared browbeat --install yes --config-file <filename> --workloads <rally,shaker,perfkit> -e @<ansible_vars_file>
+infrared browbeat --install yes --config-file <filename> -e @<ansible_vars_file>
 ```
 
 If you want to install and run workloads along with monitoring and visuzalization
 
 ```
-infrared browbeat --install yes --config-file <filename> --workloads <rally/shaker/perfkit> --monitor yes --visualize yes -e @<ansible_vars_file>
+infrared browbeat --install yes --config-file <filename> --monitor yes --visualize yes -e @<ansible_vars_file>
 ```
 If browbeat is already installed, you can skip the --install flag or set it to no to skip the installation.
 
 Passing the extra argument -e @<ansible_vars_file> is mandatory or the plugin will fail. A sample file is provided [here](vars/all.yml)
-    
+
 ## Tests
 
 To run Ansible linting tests, run the following command

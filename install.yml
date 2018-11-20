@@ -19,6 +19,6 @@
     - { role: images, when: browbeat_upload_guest_images}
     - { role: workloads, when: install_browbeat_workloads}
     - shaker-image
+    - stockpile
+    - template-configs
   environment: "{{proxy_env}}"
-
-
