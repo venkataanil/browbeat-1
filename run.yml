@@ -1,20 +1,10 @@
 ---
 - hosts: tester
   tasks:
-    - name: Set browbeat config 
-      set_fact:
-         browbeat_config_file: "{{ ((test|default('')).config|default('')).file|default('browbeat-config.yaml')|basename }}" 
-    
-    - name: Copy browbeat-config
-      copy:
-        src: "{{ test.config.file }}"
-        dest: "{{ browbeat_path }}"
-      when: test.config is defined
-    
+
     - name: Run Browbeat
       shell: |
         source {{browbeat_venv}}/bin/activate
-        ./browbeat.py -s {{ browbeat_config_file }} {{ (test|default({})).workloads|default('rally') }}
+        ./browbeat.py all
       args:
         chdir: "{{ browbeat_path }}"
-
