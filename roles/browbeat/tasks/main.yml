@@ -22,10 +22,17 @@
     - policycoreutils-python
     - python-devel
 
-- name: Install pip
-  easy_install:
-    name: pip
-  become: true
+- name: intall python-pip
+  package:
+    name: python-pip
+    state: present
+  when: ansible_python_version is version('3', '<')
+
+- name: intall python3-pip
+  package:
+    name: python3-pip
+    state: present
+  when: ansible_python_version  is version('3', '>=')
 
 - name: Update virtualenv and setuptools
   pip:

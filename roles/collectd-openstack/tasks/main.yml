@@ -285,7 +285,7 @@
 
 # Rabbitmq monitoring
 - name: Install pyrabbit
-  easy_install:
+  pip:
     name: pyrabbit
   become: true
   when: "(('controller' in group_names and {{rabbitmq_controller_collectd_plugin}} == true and '{{inventory_hostname}}' == groups['controller'][0]) or ('undercloud' in group_names and {{rabbitmq_undercloud_collectd_plugin}} == true))"
