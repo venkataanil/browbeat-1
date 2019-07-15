@@ -3,20 +3,3 @@
   tags:
     - install
   when: test.install
-
-- name: Install monitoring
-  import_playbook: collectd-openstack.yml
-  tags:
-    - monitor
-  when: test.monitor
-
-- name: Upload grafana dashboards
-  import_playbook: grafana-dashboards.yml
-  tags:
-    - visualize
-  when: test.visualize
-
-- name: Run Browbeat
-  import_playbook: run.yml
-  tags:
-    - run

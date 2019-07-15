@@ -1,24 +1,48 @@
 ---
-#
-# Playbook to install Browbeat (Rally + Shaker + PerfKitBenchmarker)
-#
+- name: prepare environment for browbeat installation
+  hosts: localhost
+  gather_facts: yes
+  tags: always
+  tasks:
+    - name: add tester group hosts to browbeat group
+      add_host:
+          hostname: "{{ item }}"
+          groups:
+            - tester
+            - browbeat
+      with_items: "{{ groups.tester }}"
 
-- hosts: tester
-  vars_files:
-    - vars/install.yml
+- name: generate inventory file
+  hosts: localhost
+  gather_facts: no
+  tags: always
   roles:
-    - common
-    - epel
-    - browbeat
-    - { role: browbeat-results, when: browbeat_results_in_httpd}
-    - firewall
-    - perfkitbenchmarker
-    - rally
-    - shaker
-    - { role: flavors, when: browbeat_create_flavors}
-    - { role: images, when: browbeat_upload_guest_images}
-    - { role: workloads, when: install_browbeat_workloads}
-    - shaker-image
-    - stockpile
-    - template-configs
-  environment: "{{proxy_env}}"
+      - role: inventory-update
+        inventory_file_name: 'hosts-prov'
+
+- name: prepare environment for browbeat installation
+  hosts: localhost
+  gather_facts: yes
+  tags: always
+  vars:
+      hypervisor: "{{ provision.host }}"
+      hypervisor_name: hypervisor
+  tasks:
+    - name: set browbeat_dir
+      set_fact:
+        browbeat_dir: "{{ ansible_user_dir }}/browbeat"
+    - name: Clone browbeat
+      vars:
+        url: "https://opendev.org/x/browbeat"
+        branch: master
+      git:
+        repo: "{{ url }}"
+        version: "{{ branch }}"
+        dest: "{{ browbeat_dir }}"
+        clone: no
+        update: no
+    - name: set browbeat_playbook path
+      set_fact:
+        browbeat_playbook: "{{ browbeat_dir }}/ansible/install/browbeat.yml"
+    - name: run ansible
+      command: "ansible-playbook -i {{ inventory_file }} {{ browbeat_playbook }}"
